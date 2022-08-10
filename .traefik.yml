@@ -1,0 +1,12 @@
+displayName: Add Missing Headers
+type: middleware
+
+import: github.com/jerrywoo96/AddMissingHeaders
+
+summary: Reads headers from app service/client, adds missing headers, but not override existing headers, and forwards them to client/app service.
+
+testData:
+  requestHeaders:
+    X-Custom-RequestHeader: CustomRequestHeader
+  responseHeaders:
+    X-Custom-ResponseHeader: CustomResponseHeader
