@@ -1,9 +1,7 @@
 # Add Missing Headers
 Reads headers from app service/client, adds missing headers, but not override existing headers, and forwards them to client/app service.
 
-<!---
-Traefik Plugin: [https://plugins.traefik.io/plugins/62cfd4129279ff6d9dd027a9/add-forwarded-header](https://plugins.traefik.io/plugins/62cfd4129279ff6d9dd027a9/add-forwarded-header)
---->
+Traefik Plugin: [https://plugins.traefik.io/plugins/62f3496be2bf06d4675b9445/add-missing-headers](https://plugins.traefik.io/plugins/62f3496be2bf06d4675b9445/add-missing-headers)
 
 GitHub: [https://github.com/jerrywoo96/AddMissingHeaders](https://github.com/jerrywoo96/AddMissingHeaders)
 
