@@ -61,7 +61,6 @@ type responseModifier struct {
 	code        int  // status code, must default to 200
 }
 
-// modifier can be nil.
 func newResponseModifier(responseHeaders map[string]string, w http.ResponseWriter) http.ResponseWriter {
 	rm := &responseModifier{
 		rw:              w,
