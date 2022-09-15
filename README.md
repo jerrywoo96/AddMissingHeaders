@@ -13,7 +13,7 @@ experimental:
   plugins:
     AddMissingHeaders:
       moduleName: github.com/jerrywoo96/AddMissingHeaders
-      version: v1.0.0
+      version: v1.1.0
 ```
 
 ### Dynamic
