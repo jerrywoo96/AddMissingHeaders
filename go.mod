@@ -1,3 +1,3 @@
 module github.com/jerrywoo96/AddMissingHeaders
 
-go 1.19
+go 1.20
