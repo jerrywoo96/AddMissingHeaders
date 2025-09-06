@@ -53,7 +53,8 @@ func (plugin *Plugin) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 }
 
 type responseModifier struct {
-	rw http.ResponseWriter
+	rw      http.ResponseWriter
+	flusher http.Flusher
 
 	responseHeaders map[string]string
 
@@ -62,8 +63,14 @@ type responseModifier struct {
 }
 
 func newResponseModifier(responseHeaders map[string]string, w http.ResponseWriter) http.ResponseWriter {
+	var flusher http.Flusher
+	if f, ok := w.(http.Flusher); ok {
+		flusher = f
+	}
+
 	rm := &responseModifier{
 		rw:              w,
+		flusher:         flusher,
 		code:            http.StatusOK,
 		responseHeaders: responseHeaders,
 	}
@@ -96,7 +103,14 @@ func (r *responseModifier) WriteHeader(code int) {
 func (r *responseModifier) Write(b []byte) (int, error) {
 	r.WriteHeader(r.code)
 
-	return r.rw.Write(b)
+	n, err := r.rw.Write(b)
+
+	// Flush explicitly after write
+	if r.flusher != nil {
+		r.flusher.Flush()
+	}
+
+	return n, err
 }
 
 // Hijack hijacks the connection.
@@ -110,7 +124,7 @@ func (r *responseModifier) Hijack() (net.Conn, *bufio.ReadWriter, error) {
 
 // Flush sends any buffered data to the client.
 func (r *responseModifier) Flush() {
-	if flusher, ok := r.rw.(http.Flusher); ok {
-		flusher.Flush()
+	if r.flusher != nil {
+		r.flusher.Flush()
 	}
 }
